@@ -1,0 +1,251 @@
+<div class="max-w-4xl mx-auto mt-10">
+
+  <div class="bg-white shadow-xl rounded-xl p-8">
+
+    <h2 class="text-3xl font-bold text-center text-blue-600 mb-8">
+      Employee Management
+    </h2>
+
+    <form #employeeForm="ngForm"
+          (ngSubmit)="AddEmployeeDetails(employeeForm.value)"
+          class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Name -->
+      <div>
+        <label class="block font-semibold mb-2">Name</label>
+        <input
+          type="text"
+          name="name"
+          [ngModel]="EmployeeData?.name"
+          placeholder="Enter your name"
+          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+      </div>
+
+      <!-- Age -->
+      <div>
+        <label class="block font-semibold mb-2">Age</label>
+        <input
+          type="number"
+          name="age"
+          [ngModel]="EmployeeData?.age"
+          placeholder="Enter your age"
+          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+      </div>
+
+      <!-- City -->
+      <div>
+        <label class="block font-semibold mb-2">City</label>
+        <input
+          type="text"
+          name="city"
+          [ngModel]="EmployeeData?.city"
+          placeholder="Enter your city"
+          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+      </div>
+
+      <!-- Birthday -->
+      <div>
+        <label class="block font-semibold mb-2">Birthday</label>
+        <input
+          type="date"
+          name="birthday"
+          [ngModel]="EmployeeData?.birthday"
+          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+      </div>
+
+      <!-- Gender -->
+      <div>
+        <label class="block font-semibold mb-2">Gender</label>
+
+        <div class="flex gap-5">
+
+          <label class="flex items-center gap-2">
+            <input
+              type="radio"
+              name="gender"
+              [value]="'Male'"
+              [ngModel]="EmployeeData?.gender">
+            Male
+          </label>
+
+          <label class="flex items-center gap-2">
+            <input
+              type="radio"
+              name="gender"
+              [value]="'Female'"
+              [ngModel]="EmployeeData?.gender">
+            Female
+          </label>
+
+          <label class="flex items-center gap-2">
+            <input
+              type="radio"
+              name="gender"
+              [value]="'Other'"
+              [ngModel]="EmployeeData?.gender">
+            Other
+          </label>
+
+        </div>
+      </div>
+
+      <!-- Married -->
+      <div>
+
+        <label class="block font-semibold mb-2">
+          Married
+        </label>
+
+        <div class="flex gap-5">
+
+          <label class="flex items-center gap-2">
+            <input
+              type="radio"
+              [value]="true"
+              name="isMarried"
+              [ngModel]="EmployeeData?.isMarried">
+            Yes
+          </label>
+
+          <label class="flex items-center gap-2">
+            <input
+              type="radio"
+              [value]="false"
+              name="isMarried"
+              [ngModel]="EmployeeData?.isMarried">
+            No
+          </label>
+
+        </div>
+
+      </div>
+
+      <!-- Button -->
+
+      <div class="md:col-span-2">
+
+        @if(!EmployeeData){
+
+        <button
+          class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+          Add Employee
+        </button>
+
+        }
+
+        @else {
+
+        <button
+          class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition">
+          Update Employee
+        </button>
+
+        }
+
+      </div>
+
+    </form>
+
+  </div>
+<div class="mt-10 overflow-x-auto">
+
+<table class="min-w-full bg-white shadow-xl rounded-xl overflow-hidden">
+
+    <thead class="bg-blue-600 text-white">
+
+        <tr>
+
+            <th class="px-6 py-4 text-left">Name</th>
+            <th class="px-6 py-4 text-left">Age</th>
+            <th class="px-6 py-4 text-left">City</th>
+            <th class="px-6 py-4 text-left">Gender</th>
+            <th class="px-6 py-4 text-left">Birthday</th>
+            <th class="px-6 py-4 text-left">Married</th>
+            <th class="px-6 py-4 text-center">Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+@for(item of EmployeeList?.employees; track item.id){
+
+<tr class="border-b hover:bg-gray-100">
+
+<td class="px-6 py-4">
+{{item.name}}
+</td>
+
+<td class="px-6 py-4">
+{{item.age}}
+</td>
+
+<td class="px-6 py-4">
+{{item.city}}
+</td>
+
+<td class="px-6 py-4">
+{{item.gender}}
+</td>
+
+<td class="px-6 py-4">
+{{item.birthday}}
+</td>
+
+<td class="px-6 py-4">
+
+@if(item.isMarried){
+
+<span class="text-green-600 font-semibold">
+Yes
+</span>
+
+}
+@else{
+
+<span class="text-red-600 font-semibold">
+No
+</span>
+
+}
+
+</td>
+
+<td class="px-6 py-4">
+
+<div class="flex gap-2 justify-center">
+
+<button
+(click)="DeleteData(item.id)"
+class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+Delete
+</button>
+
+<button
+(click)="GetEmployeeDataById(item.id)"
+class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">
+Update
+</button>
+
+<button
+(click)="ViewData(item.id)"
+class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+View
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+}
+
+    </tbody>
+
+</table>
+
+</div>
+
+</div>

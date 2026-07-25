@@ -1,0 +1,36 @@
+<!-- cotent Wrapper -->
+<div class="font-bold flex justify-center bg-gray-100 min-h-screen items-center">
+  <div class="flex flex-col bg-white shadow-2xl space-y-0 rounded-xl md:flex-row md:space-y-0">
+    <!-- left side -->
+  <div class="flex flex-col justify-center py-10 px-11 md:px-14">
+    <h1 class="text-3xl font-bold mb-3">Sign Up</h1>
+    <p class="font-light text-gray-500 mb-5">welcome Back Please SignUp</p>
+    <!-- right side -->
+    <div>
+      <form #SignUpForm="ngForm" (ngSubmit)="SignUp(SignUpForm.value)">
+        <div class="relative pb-4">
+          <span class="text-lg">Username :</span>
+          <input type="text" name="UserName" ngModel placeholder="Enter User Email" class="w-full h-11 pl-10 pr-11 py-5 border border-gray-500 rounded-3xl placeholder:text-gray-500 placeholder:font-light outline-none " />
+          <mat-icon fontIcon="user" class="absolute right-5 top-9"></mat-icon>
+        </div>
+        <div class="relative pb-4">
+          <span class="text-lg">Email :</span>
+          <input type="text" name="Email" ngModel placeholder="Enter User Email" class="w-full h-11 pl-10 pr-11 py-5 border border-gray-500 rounded-3xl placeholder:text-gray-500 placeholder:font-light outline-none " />
+          <mat-icon fontIcon="email" class="absolute right-5 top-9"></mat-icon>
+        </div>
+        <div class="relative pb-4">
+          <span class="text-lg">Password :</span>
+          <input type="text" placeholder="Enter Password " name="Password" ngModel class="w-full h-11 pl-10 pr-11 py-5 border border-gray-500 rounded-3xl placeholder:text-gray-500 placeholder:font-light outline-none " />
+          <mat-icon class="text-gray-500 absolute right-5 top-9">lock</mat-icon>
+        </div>
+        <button class=" border border-gray-500 text-shadow-white rounded-3xl w-full h-11 hover:bg-gray-900 hover:text-white font-bold">Sign Up</button>
+        <!-- Register -->
+         <div class="text-center pt-3 text-gray-400">
+          Already Have a Account?
+          <a routerLink="/login" class="border"> Sign In</a>
+         </div>
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
