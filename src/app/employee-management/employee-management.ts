@@ -14,7 +14,7 @@ import { NgForOf } from "../../../node_modules/@angular/common/types/_common_mod
   styleUrl: './employee-management.css',
 })
 export class EmployeeManagement {
-  constructor(private EmployeeInfo:Employee){}
+  constructor(private EmployeeInfo:Employee, private detect){}
   EmployeeData? : EmployeeRequestModel | undefined ;
   EmployeeList? : GetAllEmployeeResponseModel | undefined;
   AddEmployeeDetails(res:EmployeeRequestModel){
