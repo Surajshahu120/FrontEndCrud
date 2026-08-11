@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AddressService } from '../Services/address';
-
+import {employee} from '../../../Services/employee';
+import { EmployeeResponseModel } from '../../../Interfaces/EmployeeResponseModel';
 @Component({
   standalone: true,
   selector: 'app-address',
@@ -14,22 +15,22 @@ export class Address {
 
   constructor(private fb: FormBuilder,private addressModel: AddressService) {
     this.addressForm = this.fb.group({
+      buildingNo: ['', Validators.required],
+      apartment: ['', Validators.required],
       street: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zipCode: ['', Validators.required]
+      employeeId: ['', Validators.required]
     });
   }
     SubmitForm(): void {
-
     if (this.addressForm.invalid) {
-
       this.addressForm.markAllAsTouched();
-
       return;
     }
-
-    console.log(this.addressForm.value);
+    console.log("address get called",this.addressForm.value);
+    this.addressModel.AddAddress(this.addressForm.value).subscribe((data)=>{
+      console.log(data);
+      alert("Address Added Successfully");
+    })
   }
 
 }

@@ -1,18 +1,146 @@
-<div>
-  <form [formGroup]="addressForm" (ngSubmit)="SubmitForm()">
-    <label for="street">Street:</label>
-    <input type="text" id="street" formControlName="street" required>
+<table class="min-w-full bg-white shadow-xl rounded-2xl overflow-hidden">
 
-    <label for="city">City:</label>
-    <input type="text" id="city" formControlName="city" required>
+    <thead class="bg-blue-600 text-white">
 
-    <label for="state">State:</label>
-    <input type="text" id="state" formControlName="state" required>
+        <tr>
 
-    <label for="zipCode">Zip Code:</label>
-    <input type="text" id="zipCode" formControlName="zipCode" required>
+            <th class="px-6 py-4 text-left">Building No</th>
+            <th class="px-6 py-4 text-left">Apartment</th>
+            <th class="px-6 py-4 text-left">Street</th>
+            <th class="px-6 py-4 text-left">Employee ID</th>
+            <th class="px-6 py-4 text-center">Actions</th>
 
-    <button type="submit">Submit</button>
+        </tr>
 
-  </form>
+    </thead>
+
+    <tbody>
+      
+
+</table>
+<div class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+
+  <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl p-8">
+
+    <!-- Heading -->
+    <h2 class="text-3xl font-bold text-center text-blue-600 mb-8">
+      Address Form
+    </h2>
+
+    <form
+      [formGroup]="addressForm"
+      (ngSubmit)="SubmitForm()"
+      class="space-y-6"
+    >
+
+      <!-- Street -->
+      <div>
+        <label
+          for="buildingNo"
+          class="block text-sm font-semibold text-gray-700 mb-2"
+        >
+          buildingNo
+        </label>
+
+        <input
+          type="text"
+          id="buildingNo"
+          formControlName="buildingNo"
+          placeholder="Enter buildingNo"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                 focus:outline-none focus:ring-2 focus:ring-blue-500
+                 focus:border-blue-500 transition"
+        >
+      </div>
+
+
+      <!-- City -->
+      <div>
+        <label
+          for="apartment"
+          class="block text-sm font-semibold text-gray-700 mb-2"
+        >
+          apartment
+        </label>
+
+        <input
+          type="text"
+          id="apartment"
+          formControlName="apartment"
+          placeholder="Enter apartment"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                 focus:outline-none focus:ring-2 focus:ring-blue-500
+                 focus:border-blue-500 transition"
+        >
+      </div>
+
+
+      <!-- State -->
+      <div>
+        <label
+          for="street"
+          class="block text-sm font-semibold text-gray-700 mb-2"
+        >
+          Street
+        </label>
+
+        <input
+          type="text"
+          id="street"
+          formControlName="street"
+          placeholder="Enter street"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                 focus:outline-none focus:ring-2 focus:ring-blue-500
+                 focus:border-blue-500 transition"
+        >
+      </div>
+
+
+      <!-- Zip Code -->
+      <div>
+        <label
+          for="employeeId"
+          class="block text-sm font-semibold text-gray-700 mb-2"
+        >
+          Employee ID
+        </label>
+
+        <input
+          type="text"
+          id="employeeId"
+          formControlName="employeeId"
+          placeholder="Enter employee ID"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                 focus:outline-none focus:ring-2 focus:ring-blue-500
+                 focus:border-blue-500 transition"
+        >
+      </div>
+
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white font-semibold
+               py-3 rounded-lg
+               hover:bg-blue-700
+               focus:outline-none focus:ring-2 focus:ring-blue-500
+               transition duration-200"
+      >
+        Submit
+      </button>
+
+    </form>
+
+  </div>
+
 </div>
+<div class="flex justify-end mt-6">
+  <a
+    routerLink="/employee"
+    class="bg-gray-600 text-white px-4 py-2 rounded-lg
+           hover:bg-gray-700
+           focus:outline-none focus:ring-2 focus:ring-gray-500
+           transition duration-200"
+  >
+    Back to Employee Management
+  </a>

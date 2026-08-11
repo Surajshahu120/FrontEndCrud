@@ -3,18 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { EmployeeRequestModel } from '../Interfaces/EmployeeRequestModel';
 import { Employee } from '../Services/employee';
 import { EmployeeResponseModel, GetAllEmployeeResponseModel, DeleteAllEmployeeResponseModel, GetEmployeeById } from '../Interfaces/EmployeeResponseModel';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NgForOf } from "../../../node_modules/@angular/common/types/_common_module-chunk";
 
 @Component({
   selector: 'app-employee-management',
     standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLink],
   templateUrl: './employee-management.html',
   styleUrl: './employee-management.css',
 })
 export class EmployeeManagement {
-  constructor(private EmployeeInfo:Employee, private detect){}
+  constructor(private EmployeeInfo:Employee){}
   EmployeeData? : EmployeeRequestModel | undefined ;
   EmployeeList? : GetAllEmployeeResponseModel | undefined;
   AddEmployeeDetails(res:EmployeeRequestModel){

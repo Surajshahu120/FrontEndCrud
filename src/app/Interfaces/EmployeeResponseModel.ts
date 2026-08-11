@@ -2,6 +2,13 @@ export interface EmployeeResponseModel{
   message:string,
   employeeData:employeeData
 }
+export interface AddressData{
+        addressId : number;
+        buildingNo : string;
+        apartment : string;
+        street : string;
+        employeeId : number;
+}
 export interface employeeData{
    id:number,
     name: string,
@@ -10,6 +17,7 @@ export interface employeeData{
     gender: string,
     birthday: string,
     isMarried: boolean
+    addresses: AddressData[]
 }
 export interface GetEmployeeById{
     message:"string",
