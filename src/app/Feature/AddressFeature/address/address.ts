@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AddressService } from '../Services/address';
 import {Employee} from '../../../Services/employee';
-import { EmployeeResponseModel } from '../../../Interfaces/EmployeeResponseModel';
+import { EmployeeResponseModel, GetEmployeeById } from '../../../Interfaces/EmployeeResponseModel';
 import { ActivatedRoute } from '@angular/router';
+import { AddressRepresentationModel } from '../Models/AddressModel';
 @Component({
   standalone: true,
   selector: 'app-address',
@@ -22,6 +23,7 @@ export class Address {
     });
   }
     employeeId : number=0;
+    addressData : AddressRepresentationModel[] | undefined;
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.employeeId = Number(params.get('id'));
@@ -37,10 +39,13 @@ export class Address {
     this.addressModel.AddAddress(this.addressForm.value).subscribe((data)=>{
       console.log(data);
       alert("Address Added Successfully");
+      this.GetAllEmployee();
     })
   }
   GetAllEmployee(){
-
+    this.empoyeeService.GetEmployeeById(this.employeeId).subscribe((data:GetEmployeeById)=>{
+    this.addressData=data.employee.addresses;
+    })
   }
 
 }
