@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AddressService } from '../Services/address';
-import {employee} from '../../../Services/employee';
+import {Employee} from '../../../Services/employee';
 import { EmployeeResponseModel } from '../../../Interfaces/EmployeeResponseModel';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   standalone: true,
   selector: 'app-address',
@@ -12,14 +13,20 @@ import { EmployeeResponseModel } from '../../../Interfaces/EmployeeResponseModel
 })
 export class Address {
   addressForm: FormGroup;
-
-  constructor(private fb: FormBuilder,private addressModel: AddressService) {
+  constructor(private fb: FormBuilder,private addressModel: AddressService,private empoyeeService: Employee,private route: ActivatedRoute) {
     this.addressForm = this.fb.group({
       buildingNo: ['', Validators.required],
       apartment: ['', Validators.required],
       street: ['', Validators.required],
       employeeId: ['', Validators.required]
     });
+  }
+    employeeId : number=0;
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.employeeId = Number(params.get('id'));
+    });
+    console.log("employeeId",this.employeeId);
   }
     SubmitForm(): void {
     if (this.addressForm.invalid) {
@@ -31,6 +38,9 @@ export class Address {
       console.log(data);
       alert("Address Added Successfully");
     })
+  }
+  GetAllEmployee(){
+
   }
 
 }

@@ -25,7 +25,7 @@ export const routes: Routes = [
     component:SignUp
   },
   {
-    path:'address',
+    path:'address/:id',
     component:Address,
   }
 ];
