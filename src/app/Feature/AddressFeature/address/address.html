@@ -9,13 +9,23 @@
             <th class="px-6 py-4 text-left">Street</th>
             <th class="px-6 py-4 text-left">Employee ID</th>
             <th class="px-6 py-4 text-center">Actions</th>
-
         </tr>
-
     </thead>
 
     <tbody>
-      
+       @for(address of addressData; track address.addressId){
+          <tr>
+            <td class="px-6 py-4 border-b border-gray-200">{{address.buildingNo}}</td>
+            <td class="px-6 py-4 border-b border-gray-200">{{address.apartment}}</td>
+            <td class="px-6 py-4 border-b border-gray-200">{{address.street}}</td>
+            <td class="px-6 py-4 border-b border-gray-200">{{address.employeeId}}</td>
+            <td class="px-6 py-4 border-b border-gray-200" (click)="DeleteAddress(address.addressId)">Delete</td>
+            <td class="px-6 py-4 border-b border-gray-200" (click)="EditAddress(address.addressId)">Edit</td>
+
+
+          </tr>
+       }
+    </tbody>
 
 </table>
 <div class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
@@ -144,3 +154,5 @@
   >
     Back to Employee Management
   </a>
+
+

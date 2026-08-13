@@ -29,6 +29,7 @@ export class Address {
       this.employeeId = Number(params.get('id'));
     });
     console.log("employeeId",this.employeeId);
+    this.GetAllEmployee();
   }
     SubmitForm(): void {
     if (this.addressForm.invalid) {
@@ -44,8 +45,21 @@ export class Address {
   }
   GetAllEmployee(){
     this.empoyeeService.GetEmployeeById(this.employeeId).subscribe((data:GetEmployeeById)=>{
+      console.log("address data",data);
     this.addressData=data.employee.addresses;
     })
   }
-
+  DeleteAddress(id:number){
+    this.addressModel.DeleteAddress(id).subscribe((data)=>{
+      console.log(data);
+      alert("Address Deleted Successfully");
+      this.GetAllEmployee();
+    })
+  }
+  EditAddress(id:number){
+    this.addressModel.UpdateAddress(this.addressForm.value).subscribe((data)=>{
+      console.log(data);
+      alert("Address Updated Successfully");
+      this.GetAllEmployee();
+    })}
 }
