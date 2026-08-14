@@ -24,6 +24,7 @@ export class Address {
   }
     employeeId : number=0;
     addressData : AddressRepresentationModel[] | undefined;
+    addressDataSingle : AddressRepresentationModel | undefined;
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.employeeId = Number(params.get('id'));
@@ -56,10 +57,23 @@ export class Address {
       this.GetAllEmployee();
     })
   }
-  EditAddress(id:number){
+  EditAddress(){
     this.addressModel.UpdateAddress(this.addressForm.value).subscribe((data)=>{
       console.log(data);
       alert("Address Updated Successfully");
       this.GetAllEmployee();
     })}
+    GetAddressById(id:number){
+      this.addressModel.GetAddressById(id).subscribe((data)=>{
+        console.log("GetAddressById",data);
+        this.addressDataSingle = data.address;
+            // Populate form with selected address data
+    this.addressForm.patchValue({
+      buildingNo: data.address.buildingNo,
+      apartment: data.address.apartment,
+      street: data.address.street,
+      employeeId: data.address.employeeId
+    });
+      })
+    }
 }
