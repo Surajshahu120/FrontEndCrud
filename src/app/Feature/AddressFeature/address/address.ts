@@ -37,12 +37,22 @@ export class Address {
       this.addressForm.markAllAsTouched();
       return;
     }
-    console.log("address get called",this.addressForm.value);
-    this.addressModel.AddAddress(this.addressForm.value).subscribe((data)=>{
-      console.log(data);
-      alert("Address Added Successfully");
-      this.GetAllEmployee();
-    })
+    if(!this.addressDataSingle){
+      console.log("Add address get called",this.addressForm.value);
+      this.addressModel.AddAddress(this.addressForm.value).subscribe((data)=>{
+        console.log(data);
+        alert("Address Added Successfully");
+        this.GetAllEmployee();
+      })
+    }
+    else{
+      let request = {...this.addressForm.value,id:this.addressDataSingle.addressId};
+         this.addressModel.UpdateAddress(request).subscribe((data)=>{
+          console.log(data);
+          alert("Address Updated Successfully");
+          this.GetAllEmployee();
+        })
+    }
   }
   GetAllEmployee(){
     this.empoyeeService.GetEmployeeById(this.employeeId).subscribe((data:GetEmployeeById)=>{
