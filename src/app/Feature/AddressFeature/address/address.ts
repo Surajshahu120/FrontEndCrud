@@ -29,6 +29,10 @@ export class Address {
     this.route.paramMap.subscribe(params => {
       this.employeeId = Number(params.get('id'));
     });
+          this.addressForm.patchValue({
+        employeeId : this.employeeId
+      })
+      this.addressForm.get("employeeId")?.disable();
     console.log("employeeId",this.employeeId);
     this.GetAllEmployee();
   }
@@ -37,16 +41,18 @@ export class Address {
       this.addressForm.markAllAsTouched();
       return;
     }
+    const formData = this.addressForm.getRawValue();
     if(!this.addressDataSingle){
       console.log("Add address get called",this.addressForm.value);
-      this.addressModel.AddAddress(this.addressForm.value).subscribe((data)=>{
+
+      this.addressModel.AddAddress(formData).subscribe((data)=>{
         console.log(data);
         alert("Address Added Successfully");
         this.GetAllEmployee();
       })
     }
     else{
-      let request = {...this.addressForm.value,id:this.addressDataSingle.addressId};
+      let request = {...formData,id:this.addressDataSingle.addressId};
          this.addressModel.UpdateAddress(request).subscribe((data)=>{
           console.log(data);
           alert("Address Updated Successfully");
