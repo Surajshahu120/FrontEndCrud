@@ -22,6 +22,9 @@ export class Login {
              console.log(response.accessToken);
              console.log(response);
              this.jwtData.SetToken(response.accessToken);
+             if(response.accessToken == null){
+              return alert("Invalid Credentials");
+             }
              this.router.navigate(["/employee"]);
         },
         error:(error)=>{

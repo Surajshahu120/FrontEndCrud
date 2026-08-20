@@ -13,29 +13,41 @@
       <!-- Name -->
       <div>
         <label class="block font-semibold mb-2">Name</label>
-        <input type="text" name="name" [ngModel]="EmployeeData?.name" placeholder="Enter your name"
+        <input type="text" name="name" required #name="ngModel" [ngModel]="EmployeeData?.name" placeholder="Enter your name"
           class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+          @if(name.invalid && name.touched){
+            <div class="text-red-500 text-sm">Name is required</div>
+          }
       </div>
 
       <!-- Age -->
       <div>
         <label class="block font-semibold mb-2">Age</label>
-        <input type="number" name="age" [ngModel]="EmployeeData?.age" placeholder="Enter your age"
+        <input type="number" name="age" required #age="ngModel" [ngModel]="EmployeeData?.age" placeholder="Enter your age"
           class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+          @if(age.invalid && age.touched){
+            <div class="text-red-500 text-sm">Age is required</div>
+          }
       </div>
 
       <!-- City -->
       <div>
         <label class="block font-semibold mb-2">City</label>
-        <input type="text" name="city" [ngModel]="EmployeeData?.city" placeholder="Enter your city"
+        <input type="text" name="city" required #city="ngModel" [ngModel]="EmployeeData?.city" placeholder="Enter your city"
           class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+          @if(city.invalid && city.touched){
+            <div class="text-red-500 text-sm">City is required</div>
+          }
       </div>
 
       <!-- Birthday -->
       <div>
         <label class="block font-semibold mb-2">Birthday</label>
-        <input type="date" name="birthday" [ngModel]="EmployeeData?.birthday"
+        <input type="date" name="birthday" required #birthday="ngModel" [ngModel]="EmployeeData?.birthday"
           class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+          @if(birthday.invalid && birthday.touched){
+            <div class="text-red-500 text-sm">Birthday is required</div>
+          }
       </div>
 
       <!-- Gender -->
@@ -77,7 +89,7 @@
           </label>
 
           <label class="flex items-center gap-2">
-            <input type="radio" [value]="false" name="isMarried" [ngModel]="EmployeeData?.isMarried">
+            <input type="radio"  [value]="false" name="isMarried" [ngModel]="EmployeeData?.isMarried">
             No
           </label>
 

@@ -17,7 +17,6 @@ export class EmployeeManagement implements OnInit {
   constructor(private EmployeeInfo: Employee, private ngZone: NgZone) { }
   EmployeeData?: EmployeeRequestModel | undefined;
   EmployeeList = signal<employeeData[]>([]);
-  ;
   AddEmployeeDetails(res: EmployeeRequestModel) {
     if (!this.EmployeeData) {
       this.EmployeeInfo.AddEmployee(res).subscribe((data: EmployeeResponseModel) => {

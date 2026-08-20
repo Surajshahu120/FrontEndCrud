@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AddressService } from '../Services/address';
 import {Employee} from '../../../Services/employee';
 import { EmployeeResponseModel, GetEmployeeById } from '../../../Interfaces/EmployeeResponseModel';
 import { ActivatedRoute } from '@angular/router';
 import { AddressRepresentationModel } from '../Models/AddressModel';
+import { CommonModule } from '@angular/common';
 @Component({
   standalone: true,
   selector: 'app-address',
-  imports: [ ReactiveFormsModule],
+  imports: [ ReactiveFormsModule,CommonModule],
   templateUrl: './address.html',
   styleUrl: './address.css',
 })
@@ -23,8 +24,8 @@ export class Address {
     });
   }
     employeeId : number=0;
-    addressData : AddressRepresentationModel[] | undefined;
-    addressDataSingle : AddressRepresentationModel | undefined;
+    addressData = signal<AddressRepresentationModel[]>([]);
+    addressDataSingle : AddressRepresentationModel  | undefined;
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.employeeId = Number(params.get('id'));
@@ -63,7 +64,7 @@ export class Address {
   GetAllEmployee(){
     this.empoyeeService.GetEmployeeById(this.employeeId).subscribe((data:GetEmployeeById)=>{
       console.log("address data",data);
-    this.addressData=data.employee.addresses;
+    this.addressData?.set(data.employee.addresses);
     })
   }
   DeleteAddress(id:number){

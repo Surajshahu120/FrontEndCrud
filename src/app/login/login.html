@@ -10,13 +10,24 @@
       <form #logindata="ngForm" (ngSubmit)="GetData(logindata.value)">
         <div class="relative pb-4">
           <span class="text-lg">Email :</span>
-          <input type="text" name="userEmail" ngModel  placeholder="Enter User Email" class="w-full h-11 pl-10 pr-11 py-5 border border-gray-500 rounded-3xl placeholder:text-gray-500 placeholder:font-light outline-none " />
+          <input type="text" required email #userEmail="ngModel" name="userEmail" ngModel  placeholder="Enter User Email" class="w-full h-11 pl-10 pr-11 py-5 border border-gray-500 rounded-3xl placeholder:text-gray-500 placeholder:font-light outline-none " />
           <mat-icon fontIcon="email" class="absolute right-5 top-9"></mat-icon>
+          @if(userEmail.invalid && userEmail.touched){
+            @if(userEmail.errors?.['required']){
+              <div class="text-red-500 text-sm">Email is required</div>
+            }
+            @if(userEmail.errors?.['email']){
+              <div class="text-red-500 text-sm">please enter a valid email</div>
+            }
+          }
         </div>
         <div class="relative pb-4">
           <span class="text-lg">Password :</span>
-          <input type="text" name="password" ngModel placeholder="Enter Password " class="w-full h-11 pl-10 pr-11 py-5 border border-gray-500 rounded-3xl placeholder:text-gray-500 placeholder:font-light outline-none " />
+          <input type="text" #userPassword="ngModel" required name="password" ngModel placeholder="Enter Password " class="w-full h-11 pl-10 pr-11 py-5 border border-gray-500 rounded-3xl placeholder:text-gray-500 placeholder:font-light outline-none " />
           <mat-icon class="text-gray-500 absolute right-5 top-9">lock</mat-icon>
+          @if(userPassword.invalid && userPassword.touched){
+            <div class="text-red-500 text-sm">Password is required</div>
+          }
         </div>
         <div class="flex justify-center w-full py-4">
           <label for="">
@@ -24,7 +35,7 @@
             <a href="" class="font-semibold ml-9 hover:underline pr-3">Forgot Password</a>
           </label>
         </div>
-        <button class=" border border-gray-500 text-shadow-white rounded-3xl w-full h-11 hover:bg-gray-900 hover:text-white font-bold">Sign In</button>
+        <button class=" border border-gray-500 text-shadow-white rounded-3xl w-full h-11 hover:bg-gray-900 hover:text-white font-bold " [disabled]="logindata.invalid">Sign In</button>
         <!-- Register -->
          <div class="text-center pt-3 text-gray-400">
           Don't Have a Account?
