@@ -57,21 +57,24 @@
         <div class="flex gap-5">
 
           <label class="flex items-center gap-2">
-            <input type="radio" name="gender" [value]="'Male'" [ngModel]="EmployeeData?.gender">
+            <input type="radio" name="gender" #gender="ngModel" [value]="'Male'" [ngModel]="EmployeeData?.gender || 'Male'">
             Male
           </label>
 
           <label class="flex items-center gap-2">
-            <input type="radio" name="gender" [value]="'Female'" [ngModel]="EmployeeData?.gender">
+            <input type="radio" name="gender" [value]="'Female'" [ngModel]="EmployeeData?.gender || 'Male'">
             Female
           </label>
 
           <label class="flex items-center gap-2">
-            <input type="radio" name="gender" [value]="'Other'" [ngModel]="EmployeeData?.gender">
+            <input type="radio" name="gender" [value]="'Other'" [ngModel]="EmployeeData?.gender || 'Male'">
             Other
           </label>
 
         </div>
+        @if(gender.invalid && gender.touched){
+          <div class="text-red-500 text-sm">Gender is required</div>
+        }
       </div>
 
       <!-- Married -->
@@ -84,7 +87,7 @@
         <div class="flex gap-5">
 
           <label class="flex items-center gap-2">
-            <input type="radio" [value]="true" name="isMarried" [ngModel]="EmployeeData?.isMarried">
+            <input type="radio"  [value]="true" name="isMarried" #isMarried="ngModel" [ngModel]="EmployeeData?.isMarried || false">
             Yes
           </label>
 
@@ -94,7 +97,9 @@
           </label>
 
         </div>
-
+           @if(isMarried.invalid && isMarried.touched){
+            <div class="text-red-500 text-sm">Marital status is required  </div>
+           }
       </div>
 
       <!-- Button -->
