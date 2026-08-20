@@ -8,31 +8,25 @@ import { App } from './app';
 
 export const routes: Routes = [
   {
-    path: '',
-    component: App,
-    children: [
-      {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full'
-      },
-      {
-        path: 'login',
-        component: Login
-      },
-      {
-        path: "employee",
-        component: EmployeeManagement
-      }
-      ,
-      {
-        path: 'signup',
-        component: SignUp
-      },
-      {
-        path: 'address',
-        component: Address,
-      }
-    ]
+    path:'',
+    redirectTo:'login',
+    pathMatch:'full'
+  },
+  {
+    path:'login',
+    component:Login
+  },
+  {
+    path:"employee",
+    component:EmployeeManagement
+  }
+  ,
+  {
+    path:'signup',
+    component:SignUp
+  },
+  {
+    path:'address/:id',
+    component:Address,
   }
 ];

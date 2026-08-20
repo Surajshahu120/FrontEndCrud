@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Service } from '@angular/core';
-import { AddressRepresentationModel, AddOrUpdateAddress, AddAddressRequestModel, UpdateAddressRequestModel, AddAddressResponseModel, GetAllAddressResponseModel, GetAddressByIdResponseModel, UpdateAddressResponseModel } from '../Models/AddressModel';
+import { AddressRepresentationModel, AddOrUpdateAddress, AddAddressRequestModel, UpdateAddressRequestModel, AddAddressResponseModel, GetAllAddressResponseModel, GetAddressByIdResponseModel, UpdateAddressResponseModel, DeleteAddressResponseModel } from '../Models/AddressModel';
 import { environment } from '../../../Environments/environment';
 import { Observable } from 'rxjs';
 
@@ -21,6 +21,9 @@ export class AddressService {
   }
   GetAddressById(id: number): Observable<GetAddressByIdResponseModel> {
     return this.http.get<GetAddressByIdResponseModel>(environment.apiurl + '/Address/' + id);
+  }
+  DeleteAddress(id:number):Observable<DeleteAddressResponseModel>{
+    return this.http.delete<DeleteAddressResponseModel>(environment.apiurl + '/Address/' + id);
   }
   UpdateAddress(address: AddOrUpdateAddress): Observable<UpdateAddressResponseModel> {
              const request : UpdateAddressRequestModel = {

@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AddressService } from '../Services/address';
 import {Employee} from '../../../Services/employee';
-import { EmployeeResponseModel } from '../../../Interfaces/EmployeeResponseModel';
+import { EmployeeResponseModel, GetEmployeeById } from '../../../Interfaces/EmployeeResponseModel';
+import { ActivatedRoute } from '@angular/router';
+import { AddressRepresentationModel } from '../Models/AddressModel';
 @Component({
   standalone: true,
   selector: 'app-address',
@@ -12,8 +14,7 @@ import { EmployeeResponseModel } from '../../../Interfaces/EmployeeResponseModel
 })
 export class Address {
   addressForm: FormGroup;
-
-  constructor(private fb: FormBuilder,private addressModel: AddressService) {
+  constructor(private fb: FormBuilder,private addressModel: AddressService,private empoyeeService: Employee,private route: ActivatedRoute) {
     this.addressForm = this.fb.group({
       buildingNo: ['', Validators.required],
       apartment: ['', Validators.required],
@@ -21,16 +22,74 @@ export class Address {
       employeeId: ['', Validators.required]
     });
   }
+    employeeId : number=0;
+    addressData : AddressRepresentationModel[] | undefined;
+    addressDataSingle : AddressRepresentationModel | undefined;
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.employeeId = Number(params.get('id'));
+    });
+          this.addressForm.patchValue({
+        employeeId : this.employeeId
+      })
+      this.addressForm.get("employeeId")?.disable();
+    console.log("employeeId",this.employeeId);
+    this.GetAllEmployee();
+  }
     SubmitForm(): void {
     if (this.addressForm.invalid) {
       this.addressForm.markAllAsTouched();
       return;
     }
-    console.log("address get called",this.addressForm.value);
-    this.addressModel.AddAddress(this.addressForm.value).subscribe((data)=>{
-      console.log(data);
-      alert("Address Added Successfully");
+    const formData = this.addressForm.getRawValue();
+    if(!this.addressDataSingle){
+      console.log("Add address get called",this.addressForm.value);
+
+      this.addressModel.AddAddress(formData).subscribe((data)=>{
+        console.log(data);
+        alert("Address Added Successfully");
+        this.GetAllEmployee();
+      })
+    }
+    else{
+      let request = {...formData,id:this.addressDataSingle.addressId};
+         this.addressModel.UpdateAddress(request).subscribe((data)=>{
+          console.log(data);
+          alert("Address Updated Successfully");
+          this.GetAllEmployee();
+        })
+    }
+  }
+  GetAllEmployee(){
+    this.empoyeeService.GetEmployeeById(this.employeeId).subscribe((data:GetEmployeeById)=>{
+      console.log("address data",data);
+    this.addressData=data.employee.addresses;
     })
   }
-
+  DeleteAddress(id:number){
+    this.addressModel.DeleteAddress(id).subscribe((data)=>{
+      console.log(data);
+      alert("Address Deleted Successfully");
+      this.GetAllEmployee();
+    })
+  }
+  EditAddress(){
+    this.addressModel.UpdateAddress(this.addressForm.value).subscribe((data)=>{
+      console.log(data);
+      alert("Address Updated Successfully");
+      this.GetAllEmployee();
+    })}
+    GetAddressById(id:number){
+      this.addressModel.GetAddressById(id).subscribe((data)=>{
+        console.log("GetAddressById",data);
+        this.addressDataSingle = data.address;
+            // Populate form with selected address data
+    this.addressForm.patchValue({
+      buildingNo: data.address.buildingNo,
+      apartment: data.address.apartment,
+      street: data.address.street,
+      employeeId: data.address.employeeId
+    });
+      })
+    }
 }

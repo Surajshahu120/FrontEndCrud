@@ -6,6 +6,7 @@ export interface AddOrUpdateAddress{
         employeeId : number;
 }
 export interface AddressRepresentationModel{
+        addressId : number;
         buildingNo : string;
         apartment : string;
         street : string;
