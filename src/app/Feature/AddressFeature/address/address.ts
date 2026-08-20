@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AddressService } from '../Services/address';
-import {employee} from '../../../Services/employee';
+import {Employee} from '../../../Services/employee';
 import { EmployeeResponseModel } from '../../../Interfaces/EmployeeResponseModel';
 @Component({
   standalone: true,
