@@ -4,7 +4,7 @@ import { EmployeeRequestModel } from '../Interfaces/EmployeeRequestModel';
 import { Employee } from '../Services/employee';
 import { EmployeeResponseModel, GetAllEmployeeResponseModel, DeleteAllEmployeeResponseModel, GetEmployeeById, employeeData } from '../Interfaces/EmployeeResponseModel';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-employee-management',
@@ -15,22 +15,22 @@ import { CommonModule } from '@angular/common';
 })
 export class EmployeeManagement implements OnInit {
   constructor(private EmployeeInfo: Employee, private ngZone: NgZone) { }
-  EmployeeData?: EmployeeRequestModel | undefined;
+  EmployeeData= signal<EmployeeRequestModel | undefined>(undefined);
   EmployeeList = signal<employeeData[]>([]);
   AddEmployeeDetails(res: EmployeeRequestModel) {
-    if (!this.EmployeeData) {
+    if (!this.EmployeeData()) {
       this.EmployeeInfo.AddEmployee(res).subscribe((data: EmployeeResponseModel) => {
         console.log(data)
-        this.EmployeeData = undefined; // Reset form to Add mode
         alert("Data Added Successfully");
+        this.EmployeeData.set(undefined); // Reset form to Add mode
         this.GetAllEmployeesData();
       })
     }
     else {
-      let request = { ...res, id: this.EmployeeData.id };
+      let request = { ...res, id: this.EmployeeData()?.id }; // Include the ID for update
       this.EmployeeInfo.UpdateEmployee(request).subscribe((data: EmployeeResponseModel) => {
         alert("Data Updated Successfully")
-        this.EmployeeData = undefined;
+        this.EmployeeData?.set(undefined); // Reset form to Add mode
          this.GetAllEmployeesData();
       })
     }
@@ -74,12 +74,14 @@ For this project, I'd now remove the Zone.js changes and use signals rather than
   DeleteData(id: number) {
     return this.EmployeeInfo.DeleteEmployeeById(id).subscribe((data: DeleteAllEmployeeResponseModel) => {
       alert(data.message);
+      this.EmployeeData?.set(undefined);
       this.GetAllEmployeesData();
     })
   }
   GetEmployeeDataById(id: number) {
     return this.EmployeeInfo.GetEmployeeById(id).subscribe((data: GetEmployeeById) => {
-      this.EmployeeData = data.employee;
+      console.log("GetEmployeeDataById Response:", data);
+      this.EmployeeData.set(data.employee);
     })
   }
   ViewData(id: number) { }

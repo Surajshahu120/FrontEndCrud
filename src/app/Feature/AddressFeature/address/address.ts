@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AddressService } from '../Services/address';
 import {Employee} from '../../../Services/employee';
 import { EmployeeResponseModel, GetEmployeeById } from '../../../Interfaces/EmployeeResponseModel';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AddressRepresentationModel } from '../Models/AddressModel';
 import { CommonModule } from '@angular/common';
 @Component({
   standalone: true,
   selector: 'app-address',
-  imports: [ ReactiveFormsModule,CommonModule],
+  imports: [ ReactiveFormsModule,CommonModule,RouterLink ],
   templateUrl: './address.html',
   styleUrl: './address.css',
 })

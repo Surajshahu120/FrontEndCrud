@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { Component } from '@angular/core';
 import { Login } from './login/login';
 import { SignUp } from './sign-up/sign-up';
 import { EmployeeManagement } from './employee-management/employee-management';
 import { Address } from './Feature/AddressFeature/address/address';
-import { App } from './app';
+import { authGuard } from './Core/Guard/auth-guard';
+import { authRole } from './Core/Roles/auth-role';
 
 export const routes: Routes = [
   {
@@ -18,7 +18,11 @@ export const routes: Routes = [
   },
   {
     path:"employee",
-    component:EmployeeManagement
+    component:EmployeeManagement,
+    canActivate:[authGuard, authRole],
+    data: {
+      roles: "Admin"
+    }
   }
   ,
   {
@@ -28,5 +32,9 @@ export const routes: Routes = [
   {
     path:'address/:id',
     component:Address,
+    canActivate:[authGuard, authRole],
+    data: {
+      roles: "Employee"
+    }
   }
 ];

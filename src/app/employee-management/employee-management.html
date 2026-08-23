@@ -13,7 +13,7 @@
       <!-- Name -->
       <div>
         <label class="block font-semibold mb-2">Name</label>
-        <input type="text" name="name" required #name="ngModel" [ngModel]="EmployeeData?.name" placeholder="Enter your name"
+        <input type="text" name="name" required #name="ngModel" [ngModel]="EmployeeData()?.name" placeholder="Enter your name"
           class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
           @if(name.invalid && name.touched){
             <div class="text-red-500 text-sm">Name is required</div>
@@ -23,7 +23,7 @@
       <!-- Age -->
       <div>
         <label class="block font-semibold mb-2">Age</label>
-        <input type="number" name="age" required #age="ngModel" [ngModel]="EmployeeData?.age" placeholder="Enter your age"
+        <input type="number" name="age" required #age="ngModel" [ngModel]="EmployeeData()?.age" placeholder="Enter your age"
           class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
           @if(age.invalid && age.touched){
             <div class="text-red-500 text-sm">Age is required</div>
@@ -33,7 +33,7 @@
       <!-- City -->
       <div>
         <label class="block font-semibold mb-2">City</label>
-        <input type="text" name="city" required #city="ngModel" [ngModel]="EmployeeData?.city" placeholder="Enter your city"
+        <input type="text" name="city" required #city="ngModel" [ngModel]="EmployeeData()?.city" placeholder="Enter your city"
           class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
           @if(city.invalid && city.touched){
             <div class="text-red-500 text-sm">City is required</div>
@@ -43,8 +43,7 @@
       <!-- Birthday -->
       <div>
         <label class="block font-semibold mb-2">Birthday</label>
-        <input type="date" name="birthday" required #birthday="ngModel" [ngModel]="EmployeeData?.birthday"
-          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+        <input type="date" name="birthday" required #birthday="ngModel" [ngModel]="EmployeeData()?.birthday" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
           @if(birthday.invalid && birthday.touched){
             <div class="text-red-500 text-sm">Birthday is required</div>
           }
@@ -57,17 +56,17 @@
         <div class="flex gap-5">
 
           <label class="flex items-center gap-2">
-            <input type="radio" name="gender" #gender="ngModel" [value]="'Male'" [ngModel]="EmployeeData?.gender || 'Male'">
+            <input type="radio" name="gender" #gender="ngModel" [value]="'Male'" [ngModel]="EmployeeData()?.gender || 'Male'">
             Male
           </label>
 
           <label class="flex items-center gap-2">
-            <input type="radio" name="gender" [value]="'Female'" [ngModel]="EmployeeData?.gender || 'Male'">
+            <input type="radio" name="gender" [value]="'Female'" [ngModel]="EmployeeData()?.gender || 'Male'">
             Female
           </label>
 
           <label class="flex items-center gap-2">
-            <input type="radio" name="gender" [value]="'Other'" [ngModel]="EmployeeData?.gender || 'Male'">
+            <input type="radio" name="gender" [value]="'Other'" [ngModel]="EmployeeData()?.gender || 'Male'">
             Other
           </label>
 
@@ -87,12 +86,12 @@
         <div class="flex gap-5">
 
           <label class="flex items-center gap-2">
-            <input type="radio"  [value]="true" name="isMarried" #isMarried="ngModel" [ngModel]="EmployeeData?.isMarried || false">
+            <input type="radio"  [value]="true" name="isMarried" #isMarried="ngModel" [ngModel]="EmployeeData()?.isMarried || false">
             Yes
           </label>
 
           <label class="flex items-center gap-2">
-            <input type="radio"  [value]="false" name="isMarried" [ngModel]="EmployeeData?.isMarried">
+            <input type="radio"  [value]="false" name="isMarried" [ngModel]="EmployeeData()?.isMarried || false">
             No
           </label>
 
@@ -106,7 +105,7 @@
 
       <div class="md:col-span-2">
 
-        @if(!EmployeeData){
+        @if(!EmployeeData()){
 
         <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
           Add Employee
@@ -154,7 +153,7 @@
         <tr *ngFor="let item of EmployeeList()" class="border-b hover:bg-gray-100">
 
           <td class="px-6 py-4">
-            {{item.name}}
+            {{item.name | titlecase}}
           </td>
 
           <td class="px-6 py-4">
@@ -205,7 +204,7 @@
                 Update
               </button>
               <button [routerLink]="['/address', item.id]"
-                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">
+                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
                 Addresses
               </button>
             </div>
