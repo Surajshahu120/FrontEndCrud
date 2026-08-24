@@ -34,7 +34,7 @@ export const routes: Routes = [
     component:Address,
     canActivate:[authGuard, authRole],
     data: {
-      roles: "Employee"
+      roles: "Admin"
     }
   }
 ];

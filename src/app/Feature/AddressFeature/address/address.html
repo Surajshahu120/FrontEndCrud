@@ -1,34 +1,44 @@
-<table class="min-w-full bg-white shadow-xl rounded-2xl overflow-hidden">
-  <thead class="bg-blue-600 text-white">
-    <tr>
-      <th class="px-6 py-4 text-left">Building No</th>
-      <th class="px-6 py-4 text-left">Apartment</th>
-      <th class="px-6 py-4 text-left">Street</th>
-      <th class="px-6 py-4 text-left">Employee ID</th>
-      <th class="px-6 py-4 text-center">Actions</th>
-    </tr>
-  </thead>
+<div class="max-w-4xl mx-auto mt-10">
 
-  <tbody>
-    @for (address of addressData(); track address.addressId) {
-      <tr class="border-b hover:bg-gray-100">
-        <td class="px-6 py-4 border-b border-gray-200">{{ address.buildingNo }}</td>
-        <td class="px-6 py-4 border-b border-gray-200">{{ address.apartment }}</td>
-        <td class="px-6 py-4 border-b border-gray-200">{{ address.street }}</td>
-        <td class="px-6 py-4 border-b border-gray-200">{{ address.employeeId }}</td>
-        <td class="px-6 py-4 border-b border-gray-200" (click)="DeleteAddress(address.addressId)">
-          Delete
-        </td>
-        <td class="px-6 py-4 border-b border-gray-200" (click)="GetAddressById(address.addressId)">
-          Edit
-        </td>
+<div class="mt-10 overflow-x-auto">
+  <table class="min-w-full bg-white shadow-xl rounded-xl overflow-hidden">
+    <thead class="bg-blue-600 text-white">
+      <tr>
+        <th class="px-6 py-4 text-left">Building No</th>
+        <th class="px-6 py-4 text-left">Apartment</th>
+        <th class="px-6 py-4 text-left">Street</th>
+        <th class="px-6 py-4 text-left">Employee ID</th>
+        <th class="px-6 py-4 text-center">Actions</th>
       </tr>
-    }
-  </tbody>
-</table>
-<div class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-  <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl p-8">
-    <!-- Heading -->
+    </thead>
+
+    <tbody>
+      @for (address of addressData(); track address.addressId) {
+      <tr class="border-b hover:bg-gray-100">
+        <td class="px- py-3 ">{{ address.buildingNo }}</td>
+        <td class="px-6 py-3 ">{{ address.apartment }}</td>
+        <td class="px-6 py-3 ">{{ address.street }}</td>
+        <td class="px-6 py-3 ">{{ address.employeeId }}</td>
+        <td class="px-6 py-3">
+          <div class="flex gap-2 justify-center">
+            <button class="px-4 py-2 rounded-lg text-white font-semibold bg-red-500 hover:bg-red-700"
+              (click)="DeleteAddress(address.addressId)">
+              Delete
+            </button>
+            <button class="px-4 py-2 rounded-lg text-white font-semibold bg-green-500 hover:bg-green-700"
+              (click)="GetAddressById(address.addressId)">
+              Edit
+            </button>
+          </div>
+        </td>
+
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+<div class="bg-white shadow-xl rounded-xl p-8 mt-10 overflow-x-auto">
+      <!-- Heading -->
     <h2 class="text-3xl font-bold text-center text-blue-600 mb-8">Address Form</h2>
 
     <form [formGroup]="addressForm" (ngSubmit)="SubmitForm()" class="space-y-6">
@@ -38,14 +48,8 @@
           buildingNo
         </label>
 
-        <input
-          type="text"
-          id="buildingNo"
-
-          formControlName="buildingNo"
-          placeholder="Enter buildingNo"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-        />
+        <input type="text" id="buildingNo" formControlName="buildingNo" placeholder="Enter buildingNo"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
       </div>
 
       <!-- City -->
@@ -54,26 +58,16 @@
           apartment
         </label>
 
-        <input
-          type="text"
-          id="apartment"
-          formControlName="apartment"
-          placeholder="Enter apartment"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-        />
+        <input type="text" id="apartment" formControlName="apartment" placeholder="Enter apartment"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
       </div>
 
       <!-- State -->
       <div>
         <label for="street" class="block text-sm font-semibold text-gray-700 mb-2"> Street </label>
 
-        <input
-          type="text"
-          id="street"
-          formControlName="street"
-          placeholder="Enter street"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-        />
+        <input type="text" id="street" formControlName="street" placeholder="Enter street"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
       </div>
 
       <!-- Zip Code -->
@@ -82,43 +76,32 @@
           Employee ID
         </label>
 
-        <input
-          type="text"
-          id="employeeId"
-          formControlName="employeeId"
-          placeholder="Enter employee ID"
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"/>
+        <input type="text" id="employeeId" formControlName="employeeId" placeholder="Enter employee ID"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
       </div>
 
       @if (!addressDataSingle) {
-        <button
-          type="submit"
-          class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-        >
-          Add Address
-        </button>
+      <button type="submit"
+        class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+        Add Address
+      </button>
       }
       @else {
-         <!-- Submit -->
-      <button
-        type="submit"
-        class="w-full bg-blue-600 text-white font-semibold
+      <!-- Submit -->
+      <button type="submit" class="w-full bg-green-600 text-white font-semibold
                py-3 rounded-lg
-               hover:bg-blue-700
-               focus:outline-none focus:ring-2 focus:ring-blue-500
-               transition duration-200"
-      >
+               hover:bg-green-700
+               focus:outline-none focus:ring-2 focus:ring-green-500
+               transition duration-200">
         Update Address
       </button>
       }
     </form>
   </div>
-</div>
 <div class="flex justify-end mt-6">
-  <a
-    [routerLink]="['/employee']"
-    class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200"
-  >
+  <a [routerLink]="['/employee']"
+    class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
     Back to Employee Management
   </a>
+</div>
 </div>

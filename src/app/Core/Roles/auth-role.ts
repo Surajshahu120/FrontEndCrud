@@ -2,7 +2,6 @@ import { CanActivateFn, Router } from "@angular/router";
 import { Jwt } from "../../Services/jwt"
 import { inject } from "@angular/core/primitives/di";
 export const authRole : CanActivateFn = (route, state) => {
-     debugger;
       const jwtService = inject(Jwt);
       const router = inject(Router);
       const token = jwtService.GetToken();
