@@ -50,6 +50,7 @@
 
         <input type="text" id="buildingNo" formControlName="buildingNo" placeholder="Enter buildingNo"
           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+          <div *ngIf="addressForm.get('buildingNo')?.invalid && addressForm.get('buildingNo')?.touched " class="text-red-500 text-sm">Building no is required.</div>
       </div>
 
       <!-- City -->
@@ -60,6 +61,7 @@
 
         <input type="text" id="apartment" formControlName="apartment" placeholder="Enter apartment"
           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+          <div *ngIf="addressForm.get('apartment')?.invalid && addressForm.get('apartment')?.touched" class="text-red-500 text-sm">Apartment is required</div>
       </div>
 
       <!-- State -->
@@ -68,6 +70,7 @@
 
         <input type="text" id="street" formControlName="street" placeholder="Enter street"
           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+          <div *ngIf="addressForm.get('street')?.invalid && addressForm.get('street')?.touched " class="">Street should be valid</div>
       </div>
 
       <!-- Zip Code -->
