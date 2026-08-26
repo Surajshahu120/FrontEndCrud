@@ -1,52 +1,77 @@
 <div class="max-w-4xl mx-auto mt-10">
-
   <div class="bg-white shadow-xl rounded-xl p-8">
+    <h2 class="text-3xl font-bold text-center text-blue-600 mb-8">Employee Management</h2>
 
-    <h2 class="text-3xl font-bold text-center text-blue-600 mb-8">
-      Employee Management
-    </h2>
-
-
-    <form #employeeForm="ngForm" (ngSubmit)="AddEmployeeDetails(employeeForm.value)"
-      class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
+    <form
+      #employeeForm="ngForm"
+      (ngSubmit)="AddEmployeeDetails(employeeForm.value)"
+      class="grid grid-cols-1 md:grid-cols-2 gap-6"
+    >
       <!-- Name -->
       <div>
         <label class="block font-semibold mb-2">Name</label>
-        <input type="text" name="name" required #name="ngModel" [ngModel]="EmployeeData()?.name" placeholder="Enter your name"
-          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
-          @if(name.invalid && name.touched){
-            <div class="text-red-500 text-sm">Name is required</div>
-          }
+        <input
+          type="text"
+          name="name"
+          required
+          #name="ngModel"
+          [ngModel]="EmployeeData()?.name"
+          placeholder="Enter your name"
+          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        @if (name.invalid && name.touched) {
+          <div class="text-red-500 text-sm">Name is required</div>
+        }
       </div>
 
       <!-- Age -->
       <div>
         <label class="block font-semibold mb-2">Age</label>
-        <input type="number" name="age" required #age="ngModel" [ngModel]="EmployeeData()?.age" placeholder="Enter your age"
-          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
-          @if(age.invalid && age.touched){
-            <div class="text-red-500 text-sm">Age is required</div>
-          }
+        <input
+          type="number"
+          name="age"
+          required
+          #age="ngModel"
+          [ngModel]="EmployeeData()?.age"
+          placeholder="Enter your age"
+          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        @if (age.invalid && age.touched) {
+          <div class="text-red-500 text-sm">Age is required</div>
+        }
       </div>
 
       <!-- City -->
       <div>
         <label class="block font-semibold mb-2">City</label>
-        <input type="text" name="city" required #city="ngModel" [ngModel]="EmployeeData()?.city" placeholder="Enter your city"
-          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
-          @if(city.invalid && city.touched){
-            <div class="text-red-500 text-sm">City is required</div>
-          }
+        <input
+          type="text"
+          name="city"
+          required
+          #city="ngModel"
+          [ngModel]="EmployeeData()?.city"
+          placeholder="Enter your city"
+          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        @if (city.invalid && city.touched) {
+          <div class="text-red-500 text-sm">City is required</div>
+        }
       </div>
 
       <!-- Birthday -->
       <div>
         <label class="block font-semibold mb-2">Birthday</label>
-        <input type="date" name="birthday" required #birthday="ngModel" [ngModel]="EmployeeData()?.birthday" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
-          @if(birthday.invalid && birthday.touched){
-            <div class="text-red-500 text-sm">Birthday is required</div>
-          }
+        <input
+          type="date"
+          name="birthday"
+          required
+          #birthday="ngModel"
+          [ngModel]="EmployeeData()?.birthday"
+          class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        @if (birthday.invalid && birthday.touched) {
+          <div class="text-red-500 text-sm">Birthday is required</div>
+        }
       </div>
 
       <!-- Gender -->
@@ -54,85 +79,104 @@
         <label class="block font-semibold mb-2">Gender</label>
 
         <div class="flex gap-5">
-
           <label class="flex items-center gap-2">
-            <input type="radio" name="gender" #gender="ngModel" [value]="'Male'" [ngModel]="EmployeeData()?.gender || 'Male'">
+            <input
+              type="radio"
+              name="gender"
+              #gender="ngModel"
+              [value]="'Male'"
+              [ngModel]="EmployeeData()?.gender || 'Male'"
+            />
             Male
           </label>
 
           <label class="flex items-center gap-2">
-            <input type="radio" name="gender" [value]="'Female'" [ngModel]="EmployeeData()?.gender || 'Male'">
+            <input
+              type="radio"
+              name="gender"
+              [value]="'Female'"
+              [ngModel]="EmployeeData()?.gender || 'Male'"
+            />
             Female
           </label>
 
           <label class="flex items-center gap-2">
-            <input type="radio" name="gender" [value]="'Other'" [ngModel]="EmployeeData()?.gender || 'Male'">
+            <input
+              type="radio"
+              name="gender"
+              [value]="'Other'"
+              [ngModel]="EmployeeData()?.gender || 'Male'"
+            />
             Other
           </label>
-
         </div>
-        @if(gender.invalid && gender.touched){
+        @if (gender.invalid && gender.touched) {
           <div class="text-red-500 text-sm">Gender is required</div>
         }
       </div>
 
       <!-- Married -->
       <div>
-
-        <label class="block font-semibold mb-2">
-          Married
-        </label>
+        <label class="block font-semibold mb-2"> Married </label>
 
         <div class="flex gap-5">
-
           <label class="flex items-center gap-2">
-            <input type="radio"  [value]="true" name="isMarried" #isMarried="ngModel" [ngModel]="EmployeeData()?.isMarried || false">
+            <input
+              type="radio"
+              [value]="true"
+              name="isMarried"
+              #isMarried="ngModel"
+              [ngModel]="EmployeeData()?.isMarried || false"
+            />
             Yes
           </label>
 
           <label class="flex items-center gap-2">
-            <input type="radio"  [value]="false" name="isMarried" [ngModel]="EmployeeData()?.isMarried || false">
+            <input
+              type="radio"
+              [value]="false"
+              name="isMarried"
+              [ngModel]="EmployeeData()?.isMarried || false"
+            />
             No
           </label>
-
         </div>
-           @if(isMarried.invalid && isMarried.touched){
-            <div class="text-red-500 text-sm">Marital status is required  </div>
-           }
+        @if (isMarried.invalid && isMarried.touched) {
+          <div class="text-red-500 text-sm">Marital status is required</div>
+        }
       </div>
 
       <!-- Button -->
 
       <div class="md:col-span-2">
+        @if (!EmployeeData()) {
+          <button
+            class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+          >
+            Add Employee
+          </button>
 
-        @if(!EmployeeData()){
-
-        <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-          Add Employee
-        </button>
-
+        } @else {
+          <button
+            class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition"
+          >
+            Update Employee
+          </button>
         }
-
-        @else {
-
-        <button class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition">
-          Update Employee
-        </button>
-
-        }
-
       </div>
-
     </form>
   </div>
 
   <div class="mt-10 overflow-x-auto">
-
+    <button type="button" (click)="DownloadExcelFile()">
+  Download Excel
+</button>
     <table class="min-w-full bg-white shadow-xl rounded-xl overflow-hidden">
-
       <thead class="bg-blue-600 text-white">
-
         <tr>
+          <th>
+            <input type="checkbox" [checked]="isAllSelected()" (change)="toggleSelectAll($event)" />
+          </th>
 
           <th class="px-6 py-4 text-left">Name</th>
           <th class="px-6 py-4 text-left">Age</th>
@@ -141,79 +185,64 @@
           <th class="px-6 py-4 text-left">Birthday</th>
           <th class="px-6 py-4 text-left">Married</th>
           <th class="px-6 py-4 text-center">Actions</th>
-
         </tr>
-
       </thead>
 
       <tbody>
         <tr *ngFor="let item of EmployeeList()" class="border-b hover:bg-gray-100">
-
           <td class="px-6 py-4">
-            {{item.name | titlecase}}
+            {{ item.name | titlecase }}
           </td>
 
           <td class="px-6 py-4">
-            {{item.age}}
+            {{ item.age }}
           </td>
 
           <td class="px-6 py-4">
-            {{item.city}}
+            {{ item.city }}
           </td>
 
           <td class="px-6 py-4">
-            {{item.gender}}
+            {{ item.gender }}
           </td>
 
           <td class="px-6 py-4">
-            {{item.birthday}}
+            {{ item.birthday }}
           </td>
 
           <td class="px-6 py-4">
-
-            @if(item.isMarried){
-
-            <span class="text-green-600 font-semibold">
-              Yes
-            </span>
-
+            @if (item.isMarried) {
+              <span class="text-green-600 font-semibold"> Yes </span>
+            } @else {
+              <span class="text-red-600 font-semibold"> No </span>
             }
-            @else{
-
-            <span class="text-red-600 font-semibold">
-              No
-            </span>
-
-            }
-
           </td>
 
           <td class="px-6 py-4">
-
             <div class="flex gap-2 justify-center">
-
-              <button (click)="DeleteData(item.id)" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+              <button
+                (click)="DeleteData(item.id)"
+                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+              >
                 Delete
               </button>
 
-              <button (click)="GetEmployeeDataById(item.id)"
-                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">
+              <button
+                (click)="GetEmployeeDataById(item.id)"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg"
+              >
                 Update
               </button>
-              <button [routerLink]="['/address', item.id]"
-                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              <button
+                [routerLink]="['/address', item.id]"
+                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
+              >
                 Addresses
               </button>
             </div>
-
           </td>
-
         </tr>
-
       </tbody>
-
     </table>
-
   </div>
-
 </div>

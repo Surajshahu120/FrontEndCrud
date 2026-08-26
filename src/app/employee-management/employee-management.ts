@@ -1,3 +1,5 @@
+import { utils } from './../../../../node_modules/cfb/types/index.d';
+import { WorkBook } from './../../../../node_modules/xlsx/types/index.d';
 import { signal, Component, NgZone, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EmployeeRequestModel } from '../Interfaces/EmployeeRequestModel';
@@ -5,6 +7,7 @@ import { Employee } from '../Services/employee';
 import { EmployeeResponseModel, GetAllEmployeeResponseModel, DeleteAllEmployeeResponseModel, GetEmployeeById, employeeData } from '../Interfaces/EmployeeResponseModel';
 import { RouterLink } from '@angular/router';
 import { CommonModule, TitleCasePipe } from '@angular/common';
+import * as XLSX from "xlsx";
 
 @Component({
   selector: 'app-employee-management',
@@ -17,6 +20,7 @@ export class EmployeeManagement implements OnInit {
   constructor(private EmployeeInfo: Employee, private ngZone: NgZone) { }
   EmployeeData= signal<EmployeeRequestModel | undefined>(undefined);
   EmployeeList = signal<employeeData[]>([]);
+  SelectedEmployee=signal<employeeData[]>([]);
   AddEmployeeDetails(res: EmployeeRequestModel) {
     if (!this.EmployeeData()) {
       this.EmployeeInfo.AddEmployee(res).subscribe((data: EmployeeResponseModel) => {
@@ -84,6 +88,32 @@ For this project, I'd now remove the Zone.js changes and use signals rather than
       this.EmployeeData.set(data.employee);
     })
   }
+  DownloadExcelFile(){
+    const dataToExport=this.SelectedEmployee.length>0 ? this.EmployeeList:this.SelectedEmployee;
+    this.ExportToExcel("Employees",dataToExport())
+  }
+  ExportToExcel(filename:string,data:employeeData[]){
+      const sheet=XLSX.utils.json_to_sheet(data);
+      const workBook=XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workBook,sheet,filename);
+      XLSX.writeFile(workBook,`${filename}.xlsx`)
+  }
+  toggleEmployee(employee: employeeData, event: Event): void {
+
+  const checkbox = event.target as HTMLInputElement;
+
+  if (checkbox.checked) {
+
+    this.SelectedEmployee().push(employee);
+
+  } else {
+
+    this.SelectedEmployee =
+      this.SelectedEmployee.filter(
+        x => x.employeeId !== employee.id
+      );
+  }
+}
   ViewData(id: number) { }
   ngOnInit(): void {
     console.log("Ng on init is called");
