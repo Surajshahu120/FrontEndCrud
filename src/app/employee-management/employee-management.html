@@ -167,82 +167,146 @@
     </form>
   </div>
 
-  <div class="mt-10 overflow-x-auto">
-    <button type="button" (click)="DownloadExcelFile()">
-  Download Excel
-</button>
-    <table class="min-w-full bg-white shadow-xl rounded-xl overflow-hidden">
-      <thead class="bg-blue-600 text-white">
-        <tr>
-          <th>
-            <input type="checkbox" [checked]="isAllSelected()" (change)="toggleSelectAll($event)" />
-          </th>
+ <div class="mt-10 overflow-x-auto">
 
-          <th class="px-6 py-4 text-left">Name</th>
-          <th class="px-6 py-4 text-left">Age</th>
-          <th class="px-6 py-4 text-left">City</th>
-          <th class="px-6 py-4 text-left">Gender</th>
-          <th class="px-6 py-4 text-left">Birthday</th>
-          <th class="px-6 py-4 text-left">Married</th>
-          <th class="px-6 py-4 text-center">Actions</th>
-        </tr>
-      </thead>
+  <button
+    type="button"
+    (click)="DownloadExcelFile()"
+    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg mb-4">
+    Download Excel
+  </button>
 
-      <tbody>
-        <tr *ngFor="let item of EmployeeList()" class="border-b hover:bg-gray-100">
-          <td class="px-6 py-4">
-            {{ item.name | titlecase }}
-          </td>
+  <table class="min-w-full bg-white shadow-xl rounded-xl overflow-hidden">
 
-          <td class="px-6 py-4">
-            {{ item.age }}
-          </td>
+    <thead class="bg-blue-600 text-white">
+      <tr>
 
-          <td class="px-6 py-4">
-            {{ item.city }}
-          </td>
+        <!-- Select Checkbox -->
+        <th class="px-6 py-4 text-center">
+          Select
+        </th>
 
-          <td class="px-6 py-4">
-            {{ item.gender }}
-          </td>
+        <th class="px-6 py-4 text-left">
+          Name
+        </th>
 
-          <td class="px-6 py-4">
-            {{ item.birthday }}
-          </td>
+        <th class="px-6 py-4 text-left">
+          Age
+        </th>
 
-          <td class="px-6 py-4">
-            @if (item.isMarried) {
-              <span class="text-green-600 font-semibold"> Yes </span>
-            } @else {
-              <span class="text-red-600 font-semibold"> No </span>
-            }
-          </td>
+        <th class="px-6 py-4 text-left">
+          City
+        </th>
 
-          <td class="px-6 py-4">
-            <div class="flex gap-2 justify-center">
-              <button
-                (click)="DeleteData(item.id)"
-                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
-              >
-                Delete
-              </button>
+        <th class="px-6 py-4 text-left">
+          Gender
+        </th>
 
-              <button
-                (click)="GetEmployeeDataById(item.id)"
-                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg"
-              >
-                Update
-              </button>
-              <button
-                [routerLink]="['/address', item.id]"
-                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
-              >
-                Addresses
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        <th class="px-6 py-4 text-left">
+          Birthday
+        </th>
+
+        <th class="px-6 py-4 text-left">
+          Married
+        </th>
+
+        <th class="px-6 py-4 text-center">
+          Actions
+        </th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr
+        *ngFor="let item of EmployeeList()"
+        class="border-b hover:bg-gray-100">
+
+        <!-- Checkbox -->
+        <td class="px-6 py-4 text-center">
+          <input type="checkbox"
+            [checked]="isEmployeeSelected(item)"
+            (change)="toggleEmployee(item, $event)"
+          />
+        </td>
+
+        <!-- Name -->
+        <td class="px-6 py-4">
+          {{ item.name | titlecase }}
+        </td>
+
+        <!-- Age -->
+        <td class="px-6 py-4">
+          {{ item.age }}
+        </td>
+
+        <!-- City -->
+        <td class="px-6 py-4">
+          {{ item.city }}
+        </td>
+
+        <!-- Gender -->
+        <td class="px-6 py-4">
+          {{ item.gender }}
+        </td>
+
+        <!-- Birthday -->
+        <td class="px-6 py-4">
+          {{ item.birthday }}
+        </td>
+
+        <!-- Married -->
+        <td class="px-6 py-4">
+
+          @if (item.isMarried) {
+
+            <span class="text-green-600 font-semibold">
+              Yes
+            </span>
+
+          }
+          @else {
+
+            <span class="text-red-600 font-semibold">
+              No
+            </span>
+
+          }
+
+        </td>
+
+        <!-- Actions -->
+        <td class="px-6 py-4">
+
+          <div class="flex gap-2 justify-center">
+
+            <button
+              (click)="DeleteData(item.id)"
+              class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+              Delete
+            </button>
+
+            <button
+              (click)="GetEmployeeDataById(item.id)"
+              class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">
+              Update
+            </button>
+
+            <button
+              [routerLink]="['/address', item.id]"
+              class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Addresses
+            </button>
+
+          </div>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
 </div>

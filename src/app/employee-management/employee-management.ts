@@ -88,31 +88,37 @@ For this project, I'd now remove the Zone.js changes and use signals rather than
       this.EmployeeData.set(data.employee);
     })
   }
-  DownloadExcelFile(){
-    const dataToExport=this.SelectedEmployee.length>0 ? this.EmployeeList:this.SelectedEmployee;
-    this.ExportToExcel("Employees",dataToExport())
-  }
-  ExportToExcel(filename:string,data:employeeData[]){
-      const sheet=XLSX.utils.json_to_sheet(data);
-      const workBook=XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workBook,sheet,filename);
-      XLSX.writeFile(workBook,`${filename}.xlsx`)
-  }
-  toggleEmployee(employee: employeeData, event: Event): void {
-
-  const checkbox = event.target as HTMLInputElement;
-
-  if (checkbox.checked) {
-
-    this.SelectedEmployee().push(employee);
-
-  } else {
-
-    this.SelectedEmployee =
-      this.SelectedEmployee.filter(
-        x => x.employeeId !== employee.id
-      );
-  }
+toggleEmployee(employee:employeeData,event:Event){
+    let check = event.target as HTMLInputElement;
+    if(check.checked){
+      this.SelectedEmployee.update(employees => [...employees,employee]);
+    }
+    else{
+      this.SelectedEmployee.update(employees => employees.filter(x => x.id != employee.id));
+    }
+}
+isEmployeeSelected(employee:employeeData):boolean{
+        return this.SelectedEmployee().some(x => x.id == employee.id);
+}
+DownloadExcelFile(){
+  var excelData=this.SelectedEmployee.length>0?this.SelectedEmployee():this.EmployeeList();
+  this.exportToExcel("employee",excelData);
+}
+exportToExcel(fileName:string,employee:employeeData[]){
+      var excelData=employee.map(x => ({
+        "id":x.id,
+        "name":x.name,
+        "age":x.age,
+        "birthday":x.birthday,
+        "city":x.city,
+        "gender":x.gender,
+        "isMarried":x.isMarried?true:false
+      }))
+      var excel=XLSX.utils.json_to_sheet(excelData);
+      var workbook=XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook,excel,fileName);
+      XLSX.writeFile(workbook,`${fileName}.xlsx`);
+      alert(`${fileName}.xlsx downloaded successfully`)
 }
   ViewData(id: number) { }
   ngOnInit(): void {
